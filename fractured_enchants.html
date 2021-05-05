@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Fractured enchants</title>
+<head>
+<meta charset="utf-8"/>
+<script src="./jquery-3.6.0.min.js"> </script>
+
+<script>
+
+
+var materiales={'Amanita Mushrooms':{'Soul':2,'Transform':1,'Death':4,}, 'Animal Bones':{'Soul':2,'Transfer':2,'Earth':2,}, 'Animated Flesh':{'Soul':4,'Order':2,'Time':2,}, 'Antlers':{'Soul':3,'Knowledge':3,'Time':2,}, 'Arnica':{'Transform':1,'Order':2,'Water':4,}, 'Ashes':{'Soul':2,'Transfer':2,'Time':3,}, 'Bear Claws':{'Body':2,'Destroy':3,'Fire':3,}, 'Beast Blood':{'Transfer':4,'Energy':2,'Fire':2,}, 'Bitterleaf':{'Fire':2,'Life':3,'Water':3,}, 'Bloodvein':{'Create':2,'Fire':4,'Life':1,}, 'Brain Mushroom':{'Mind':2,'Create':1,'Knowledge':4,}, 'Callous Bark':{'Negate':4,'Earth':2,'Water':2,}, 'Crystalized Magic':{'Mind':1,'Knowledge':4,'Water':4,}, 'Dandelion':{'Air':4,'Chaos':1,'Time':2,}, 'Dark Splinters':{'Destroy':3,'Death':1,'Earth':3,}, 'Death Crystal':{'Negate':2,'Death':4,'Time':2,}, 'Electrified Fluids':{'Transform':2,'Air':3,'Energy':3,}, 'Fertile Dirt':{'Transfer':3,'Earth':3,'Life':1,}, 'Fox Tail':{'Mind':3,'Transfer':2,'Air':3,}, 'Garlic':{'Body':2,'Earth':2,'Energy':2,}, 'Ghoul Saliva':{'Transfer':2,'Chaos':3,'Death':3,}, 'Goblin Tongue':{'Soul':2,'Negate':3,'Order':2,}, 'Hardened Skin':{'Body':3,'Negate':2,'Time':3,}, 'Honeynail Mushrooms':{'Body':2,'Transform':3,'Life':3,}, 'Lavender':{'Negate':4,'Energy':2,'Water':1,}, 'Living Wood':{'Mind':1,'Life':4,'Order':2,}, 'Mandrake Root':{'Mind':2,'Energy':3,'Knowledge':2,}, 'Milkweed':{'Negate':2,'Time':3,'Water':3,}, 'Necrotic Bone':{'Transfer':2,'Death':4,'Life':3,}, 'Nightshade Berries':{'Body':1,'Death':3,'Time':3,}, 'Noxious Fumes':{'Destroy':4,'Air':2,'Time':3,}, 'Penny Bun Mushrooms':{'Body':4,'Earth':1,'Order':2,}, 'Plagued Remains':{'Body':2,'Chaos':3,'Earth':2,}, 'Primal Blood':{'Fire':3,'Knowledge':3,'Water':3,}, 'Primordial Dust':{'Transform':2,'Chaos':3,'Time':3,}, 'Pulsating Geode':{'Mind':4,'Earth':2,'Knowledge':3,}, 'Rabbit Paw':{'Soul':2,'Chaos':3,'Energy':3,}, 'Replicating Tisue':{'Body':2,'Create':4,'Order':2,}, 'Shard of Corruption':{'Destroy':3,'Death':4,'Fire':2,}, 'Spark of Life':{'Soul':2,'Create':2,'Life':4,}, 'Spider Eye':{'Mind':2,'Transfer':3,'Knowledge':1,}, 'Spider Gland':{'Transform':2,'Life':3,'Order':3,}, 'Sulphur':{'Destroy':2,'Energy':2,'Fire':4,}, 'Treant Sap':{'Body':2,'Transfer':4,'Life':1,}, 'Troll Liver':{'Transform':4,'Energy':4,'Order':1,}, 'Warg Fangs':{'Body':3,'Destroy':4,'Death':2,}, 'White Cap Mushrooms':{'Soul':4,'Destroy':2,'Air':1,}, 'Wolf Teeth':{'Body':3,'Destroy':3,'Earth':2,}, 'Wolfsbane':{'Negate':3,'Air':2,'Death':3,}, 'Zombie Brain':{'Mind':3,'Transform':1,'Chaos':4,},}
+
+var enchants={"WEAPONS":{'Damage Increase':['Body','Transform','Chaos','Earth'], 'Critical Chance':['Soul','Create','Chaos','Life'], 'Critical Damage':['Body','Transform','Chaos','Order'], 'Spell Damage Increase':['Mind','Transform','Chaos','Energy'], 'Accuracy Bonus':['Soul','Transform','Fire','Order'], 'Luck Bonus':['Soul','Create','Chaos','Energy'], 'Durable':['Body','Transform','Earth','Order']}, "ARMOR":{'Endurance Regen Bonus':['Body','Transfer','Energy','Time'], 'Bonus Endurance':['Body','Create','Energy','Life'], 'Mana Regen Bonus':['Mind','Transfer','Energy','Time'], 'Armor Increase':['Body','Negate','Chaos','Earth'], 'Evasion Bonus':['Soul','Transform','Air','Chaos'], 'Accuracy Bonus':['Soul','Transform','Fire','Order'], 'Fortitude Bonus':['Body','Negate','Chaos','Death'], 'Willpower Bonus':['Mind','Negate','Chaos','Energy'], 'Fire Resist':['Body','Negate','Chaos','Fire'], 'Ice resist':['Body','Negate','Order','Water'], 'Shock Resist':['Body','Negate','Air','Energy'], 'Magic Resist':['Body','Negate','Energy','Knowledge'], 'Poison Resist':['Body','Negate','Death','Earth'], 'Acid Resist':['Body','Negate','Chaos','Fire'], 'Luck Bonus':['Soul','Create','Chaos','Energy'], 'Durable':['Body','Transform','Earth','Order'], 'Detection Bonus':['Soul','Create','Chaos','Knowledge'], 'Health Regeneration Bonus':['Body','Transfer','Energy','Time'], 'Stealth Bonus':['Soul','Create','Air','Order',]}, "SHIELD": {'Willpower Bonus':['Mind','Negate','Chaos','Energy'], 'Fire Resist':['Body','Negate','Chaos','Fire'], 'Ice resist':['Body','Negate','Order','Water'], 'Shock Resist':['Body','Negate','Air','Energy'], 'Magic Resist':['Body','Negate','Energy','Knowledge'], 'Poison resist':['Body','Negate','Death','Earth'], 'Acid Resist':['Body','Negate','Chaos','Water'], 'Luck Bonus':['Soul','Create','Chaos','Energy'], 'Durable':['Body','Transform','Earth','Order']}, "AMULET": {'Bonus Endurance':['Body','Create','Energy','Life'], 'Endurance Regen':['Body','Transfer','Energy','Time'], 'Life Regen':['Body','Transfer','Life','Time'], 'Bonus Mana':['Mind','Create','Energy','Order'], 'Mana Regen':['Mind','Transfer','Energy','Time'], 'Strength Bonus':['Body','Transform','Energy','Order'], 'Dexterity Bonus':['Body','Transform','Energy','Time'], 'Perception Bonus':['Soul','Transform','Chaos','Knowledge'], 'Intelligence Bonus':['Mind','Transform','Energy','Knowledge'], 'Charisma Bonus':['Soul','Transform','Knowledge','Life'], 'Constitution Bonus':['Body','Transform','Life','Order'], 'Damage Increase':['Body','Transform','Chaos','Earth'], 'Critical Chance':['Soul','Create','Chaos','Order'], 'Spell Damage Increase':['Mind','Transform','Chaos','Energy'], 'Evasion Bonus':['Soul','Transform','Air','Chaos'], 'Accuracy Bonus':['Soul','Transform','Fire','Order'], 'Fortitude Bonus':['Body','Negate','Chaos','Death'], 'Willpower Bonus':['Mind','Negate','Chaos','Energy'], 'Fire Resist':['Body','Negate','Chaos','Fire'], 'Ice Resist':['Body','Negate','Order','Water'], 'Shock Resist':['Body','Negate','Air','Energy'], 'Magic Resist':['Body','Negate','Energy','Knowledge'], 'Poison Resist':['Body','Negate','Death','Earth'], 'Acid Resist':['Body','Negate','Chaos','Water'], 'Lower Mana Cost':['Mind','Transform','Energy','Order'], 'Cooldown Reduction':['Mind','Transform','Energy','Time'], 'Stealth Bonus':['Soul','Create','Air','Order'], 'Detection Bonus':['Soul','Create','Chaos','Knowledge'], 'Lockpicking Bonus':['Mind','Create','Knowledge','Order'], 'Luck Bonus':['Soul','Create','Chaos','Energy'], 'Durable':['Body','Transform','Earth','Order']}};
+
+	function mixmats(currMat,valores, validmats,lookenchant) {
+
+	var combs=[];
+	$.each(validmats, function(indice,valor) {
+	var currComb={mats:[],valores:{}};
+	currComb.mats.push(currMat);
+	currComb.mats.push(indice);
+	for(iX=0;iX<4;iX++) {currComb.valores[lookenchant[iX]]=(valor[lookenchant[iX]]??0)+(valores[lookenchant[iX]]??0);}
+	combs.push(currComb);
+	});
+	return combs;
+	}
+
+	function checkTier(currComb) {
+	dt=[];
+	$.each(currComb.valores,function(iC,vC){
+		if(vC==10) {dt.push(3);} 
+		else if(vC>=5 && vC<10 ) { dt.push(2);} 
+		else if(vC>=2 && vC<5) { dt.push(1);} 
+		else {dt.push(0)};
+	});
+
+	return Math.min(...dt);
+	}
+
+	function chkDup(currComb, combinations) {
+		tMatch=true;
+		currComb.mats.sort();
+		$.each(combinations, function(i,v) {
+			v.mats.sort();
+			/*
+			 if( currComb.mats.includes("Beast Blood") && currComb.mats.includes("Troll Liver") && currComb.mats.includes("Zombie Brain")){
+				console.log("*****"+combinations.length);
+			}
+			*/
+			if(JSON.stringify(v.mats)==JSON.stringify(currComb.mats)) { tMatch=true; return false;}
+			$.each(v.mats, function(i1,v1) {
+				if(!currComb.mats.includes(v1)) {tMatch=false; return false;}
+			});
+			if(tMatch && currComb.tier>v.tier) {tMatch=false; return false;};
+			if (tMatch) {return false;}
+		});
+		return !tMatch;
+	}
+
+	function getEnchat(lookenchant, numbermats=2) {
+	validmats={};
+	$.each(materiales, function (indice, valor) {
+	found=false;
+	$.each(valor, function (i, v) {
+	if(lookenchant.includes(i)) {found=true;}
+	});
+	if (found) {validmats[indice]=valor;}
+	})
+
+	var combinations=[];
+	var tmpmats=Object.assign({}, validmats);
+	var tmpmats1=Object.assign({}, validmats);
+	//2Mats
+	$.each(tmpmats, function(i0,v0) {
+	$.each(tmpmats1, function(i1,v1) {
+	var currComb={mats:[],valores:{},tier:3};
+	currComb.mats.push(i0);
+	currComb.mats.push(i1);
+	for(iX=0;iX<4;iX++) {currComb.valores[lookenchant[iX]]=(v0[lookenchant[iX]]??0)+(v1[lookenchant[iX]]??0);}
+	currComb.tier=checkTier(currComb);
+	if (currComb.tier>=1) combinations.push(currComb);
+	});
+	delete tmpmats1[i0];
+	});
+	
+	if (numbermats>2) {
+	//3mats
+	var tmpmats=Object.assign({}, validmats);
+	var tmpmats1=Object.assign({}, validmats);
+	$.each(tmpmats, function(i0,v0) {
+	$.each(tmpmats1, function(i1,v1) {
+	$.each(tmpmats1, function(i2,v2) {
+	var currComb={mats:[],valores:{},tier:3};
+	currComb.mats.push(i0);
+	currComb.mats.push(i1);
+	currComb.mats.push(i2);
+
+	for(iX=0;iX<4;iX++) {currComb.valores[lookenchant[iX]]=(v0[lookenchant[iX]]??0)+(v1[lookenchant[iX]]??0)+(v2[lookenchant[iX]]??0);}
+	currComb.tier=checkTier(currComb);
+	
+	if (currComb.tier>=1 && chkDup(currComb, combinations)) {
+		combinations.push(currComb);
+	}
+	});
+	});
+	delete tmpmats1[i0];
+	});
+	}
+
+	if (numbermats>3) {
+	//4mats
+	var tmpmats=Object.assign({}, validmats);
+	var tmpmats1=Object.assign({}, validmats);
+	$.each(tmpmats, function(i0,v0) {
+	$.each(tmpmats1, function(i1,v1) {
+	$.each(tmpmats1, function(i2,v2) {
+	$.each(tmpmats1, function(i3,v3) {
+	var currComb={mats:[],valores:{},tier:3};
+	currComb.mats.push(i0);
+	currComb.mats.push(i1);
+	currComb.mats.push(i2);
+	currComb.mats.push(i3);
+	for(iX=0;iX<4;iX++) {currComb.valores[lookenchant[iX]]=(v0[lookenchant[iX]]??0)+(v1[lookenchant[iX]]??0)+(v2[lookenchant[iX]]??0)+(v3[lookenchant[iX]]??0);}
+	currComb.tier=checkTier(currComb);
+	if (currComb.tier>=2 && chkDup(currComb, combinations)) {
+		combinations.push(currComb);
+	}
+	});
+	});
+	});
+	delete tmpmats1[i0];
+	});
+	}
+
+	if (numbermats>4) {
+	//5mats
+	var tmpmats=Object.assign({}, validmats);
+	var tmpmats1=Object.assign({}, validmats);
+	$.each(tmpmats, function(i0,v0) {
+	$.each(tmpmats1, function(i1,v1) {
+	$.each(tmpmats1, function(i2,v2) {
+	$.each(tmpmats1, function(i3,v3) {
+	$.each(tmpmats1, function(i4,v4) {
+	var currComb={mats:[],valores:{},tier:3};
+	currComb.mats.push(i0);
+	currComb.mats.push(i1);
+	currComb.mats.push(i2);
+	currComb.mats.push(i3);
+	currComb.mats.push(i4);
+	for(iX=0;iX<4;iX++) {currComb.valores[lookenchant[iX]]=(v0[lookenchant[iX]]??0)+(v1[lookenchant[iX]]??0)+(v2[lookenchant[iX]]??0)+(v3[lookenchant[iX]]??0)+(v4[lookenchant[iX]]??0);}
+	currComb.tier=checkTier(currComb);
+	if (currComb.tier>=2 && chkDup(currComb, combinations)) {
+		combinations.push(currComb);
+	}
+	});
+	});
+	});
+	});
+	delete tmpmats1[i0];
+	});
+	}
+
+	//$.each(combinations, function(i,v) { console.log(JSON.stringify(v)); });
+	return combinations;
+	}
+
+//lookenchant=enchants.ARMOR["Bonus Endurance"];
+//combinations=getEnchat(lookenchant,5);
+
+
+$("document").ready(function(e) {
+lookenchant=enchants.WEAPONS["Spell Damage Increase"];
+combinations=getEnchat(lookenchant,3);
+$("#resultado").text(JSON.stringify(combinations));
+});
+</script>
+</head>
+<body>
+Listado de combinaciones:
+<div id="resultado">
+</div>
+</body>
+</html>
